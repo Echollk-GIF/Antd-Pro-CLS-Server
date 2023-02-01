@@ -1,4 +1,12 @@
-const { registerUserAccount } = require('../service/user.service')
+const jwt = require('jsonwebtoken')
+
+const {
+  registerUserAccount,
+  getUserInfo
+} = require('../service/user.service')
+
+const { userRegisterError } = require('../constant/err.type')
+const { JWT_SECRET } = require('../config/config.default')
 
 class UserController {
   //账号密码注册用户
@@ -25,7 +33,21 @@ class UserController {
   }
 
   async loginAccount (ctx, next) {
-    ctx.body = '登录成功'
+    const { username } = ctx.request.body
+    // 1. 获取用户信息(在token的payload中, 记录id, username, authority)
+    try {
+      const { id, authority } = await getUserInfo({ username })
+      const res = { id, username, authority }
+      ctx.body = {
+        code: 0,
+        message: '用户登录成功',
+        result: {
+          token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
+        },
+      }
+    } catch (err) {
+      console.error('用户登录失败', err)
+    }
   }
 }
 
