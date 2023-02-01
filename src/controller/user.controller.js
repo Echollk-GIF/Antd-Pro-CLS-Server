@@ -7,7 +7,14 @@ class UserController {
     // 2. 操作数据库
     const res = await registerUserAccount(username, password)
     // 3. 返回结果
-    ctx.body = ctx.request.body
+    ctx.body = {
+      code: 0,
+      message: '用户注册成功',
+      result: {
+        id: res.id,
+        username: res.username,
+      },
+    }
   }
 
   async loginAccount (ctx, next) {
