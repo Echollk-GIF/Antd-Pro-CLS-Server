@@ -21,6 +21,20 @@ class UserService {
     })
     return res ? res.dataValues : null
   }
+
+  //根据id更新用户信息
+  async updateById ({ id, username, password, authority }) {
+    const whereOpt = { id }
+    const newUser = {}
+
+    username && Object.assign(newUser, { username })
+    password && Object.assign(newUser, { password })
+    authority && Object.assign(newUser, { authority })
+
+    const res = await User.update(newUser, { where: whereOpt })
+
+    return res[0] > 0 ? true : false
+  }
 }
 
 module.exports = new UserService()

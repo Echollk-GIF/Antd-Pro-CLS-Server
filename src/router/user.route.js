@@ -7,7 +7,8 @@ const {
 } = require('../middleware/user.middleware')
 const {
   registerAccount,
-  loginAccount
+  loginAccount,
+  changePassword
 } = require('../controller/user.controller')
 const {
   tokenAuth
@@ -21,9 +22,6 @@ router.post('/register/account', userValidator, verifyUserExist, crpytPassword, 
 router.post('/login/account', userValidator, verifyLoginAccount, loginAccount)
 
 // 修改密码接口
-router.patch('/', tokenAuth, (ctx, next) => {
-  console.log(ctx.state.user)
-  ctx.body = '修改密码成功'
-})
+router.patch('/', tokenAuth, crpytPassword, changePassword)
 
 module.exports = router

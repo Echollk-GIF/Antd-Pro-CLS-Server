@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken')
 
 const {
   registerUserAccount,
-  getUserInfo
+  getUserInfo,
+  updateById
 } = require('../service/user.service')
 
 const { userRegisterError } = require('../constant/err.type')
@@ -31,7 +32,7 @@ class UserController {
       ctx.app.emit('error', userRegisterError, ctx)
     }
   }
-
+  //账号密码登录账号
   async loginAccount (ctx, next) {
     const { username } = ctx.request.body
     // 1. 获取用户信息(在token的payload中, 记录id, username, authority)
@@ -47,6 +48,28 @@ class UserController {
       }
     } catch (err) {
       console.error('用户登录失败', err)
+    }
+  }
+
+  //修改密码
+  async changePassword (ctx, next) {
+    // 1. 获取数据
+    const id = ctx.state.user.id
+    const password = ctx.request.body.password
+
+    // 2. 操作数据库
+    if (await updateById({ id, password })) {
+      ctx.body = {
+        code: 0,
+        message: '修改密码成功',
+        result: '',
+      }
+    } else {
+      ctx.body = {
+        code: '10007',
+        message: '修改密码失败',
+        result: '',
+      }
     }
   }
 }
