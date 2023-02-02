@@ -48,6 +48,16 @@ const User = seq.define('user', {
     defaultValue: "某某某事业群－某某平台部－某某技术部",
     comment: '群组',
   },
+  tags: {
+    type: DataTypes.STRING,
+    defaultValue: '[{"key":"0","label":"很有想法的"},{"key":"1","label":"有主见的"},{"key":"2","label":"湾妹"}]',
+    get () {
+      return this.getDataValue('tags').split(',')
+    },
+    set (value) {
+      return this.setDataValue('tags', value.join(','))
+    }
+  },
   notifyCount: {
     type: DataTypes.INTEGER,
     defaultValue: 12,
@@ -67,6 +77,16 @@ const User = seq.define('user', {
     type: DataTypes.STRING,
     defaultValue: "admin",
     comment: '权限',
+  },
+  geographic: {
+    type: DataTypes.STRING,
+    defaultValue: '{"province":{"label":"浙江省","key":"330000"},"city":{"label":"杭州市","key":"330100"}}',
+    get () {
+      return this.getDataValue('tags').split(',')
+    },
+    set (value) {
+      return this.setDataValue('tags', value.join(','))
+    }
   },
   address: {
     type: DataTypes.STRING,
