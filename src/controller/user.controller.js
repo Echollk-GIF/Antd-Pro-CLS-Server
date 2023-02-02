@@ -40,17 +40,15 @@ class UserController {
       const { id, authority } = await getUserInfo({ username })
       const res = { id, username, authority }
       ctx.body = {
-        code: 0,
-        message: '用户登录成功',
-        result: {
-          token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
-        },
+        status: 'ok',
+        currentAuthority: authority,
+        type: 'account',
+        token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
       }
     } catch (err) {
       console.error('用户登录失败', err)
     }
   }
-
   //修改密码
   async changePassword (ctx, next) {
     // 1. 获取数据
@@ -70,6 +68,20 @@ class UserController {
         message: '修改密码失败',
         result: '',
       }
+    }
+  }
+  //根据token获取用户信息
+  async currentUserInfo (ctx, next) {
+    const id = ctx.state.user.id
+    try {
+      const { username, authority } = await getUserInfo({ id })
+      const res = { id, username, authority }
+      ctx.body = {
+        success: true,
+        data: { ...res }
+      }
+    } catch (error) {
+      console.error('根据token获取用户信息失败', err)
     }
   }
 }
