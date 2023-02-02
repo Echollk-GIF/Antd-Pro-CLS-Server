@@ -16,11 +16,67 @@ const User = seq.define('user', {
     allowNull: false,
     comment: '密码',
   },
-  authority: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: '0',
-    comment: '是否为管理员, 0: 不是管理员(默认); 1: 普通管理员',
+    defaultValue: '默认用户名',
+    comment: '用户名',
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    comment: '头像',
+  },
+  email: {
+    type: DataTypes.STRING,
+    defaultValue: "841290355@qq.com",
+    comment: '邮箱',
+  },
+  signature: {
+    type: DataTypes.STRING,
+    defaultValue: "海纳百川，有容乃大",
+    comment: '个性签名',
+  },
+  title: {
+    type: DataTypes.STRING,
+    defaultValue: "交互专家",
+    comment: '头衔',
+  },
+  group: {
+    type: DataTypes.STRING,
+    defaultValue: "某某某事业群－某某平台部－某某技术部",
+    comment: '群组',
+  },
+  notifyCount: {
+    type: DataTypes.INTEGER,
+    defaultValue: 12,
+    comment: '通知数量',
+  },
+  unreadCount: {
+    type: DataTypes.INTEGER,
+    defaultValue: 11,
+    comment: '未读数量',
+  },
+  country: {
+    type: DataTypes.STRING,
+    defaultValue: "China",
+    comment: '国家',
+  },
+  access: {
+    type: DataTypes.STRING,
+    defaultValue: "admin",
+    comment: '权限',
+  },
+  address: {
+    type: DataTypes.STRING,
+    defaultValue: "西湖区工专路 77 号",
+    comment: '地址',
+  },
+  phone: {
+    type: DataTypes.STRING,
+    defaultValue: "0752-268888888",
+    comment: '手机号',
   },
 })
 

@@ -35,13 +35,13 @@ class UserController {
   //账号密码登录账号
   async loginAccount (ctx, next) {
     const { username } = ctx.request.body
-    // 1. 获取用户信息(在token的payload中, 记录id, username, authority)
+    // 1. 获取用户信息(在token的payload中, 记录id, username, access)
     try {
-      const { id, authority } = await getUserInfo({ username })
-      const res = { id, username, authority }
+      const { id, access } = await getUserInfo({ username })
+      const res = { id, username, access }
       ctx.body = {
         status: 'ok',
-        currentAuthority: authority,
+        currentAuthority: access,
         type: 'account',
         token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
       }
@@ -74,8 +74,8 @@ class UserController {
   async currentUserInfo (ctx, next) {
     const id = ctx.state.user.id
     try {
-      const { username, authority } = await getUserInfo({ id })
-      const res = { id, username, authority }
+      const { username, access } = await getUserInfo({ id })
+      const res = { id, username, access }
       ctx.body = {
         success: true,
         data: { ...res }

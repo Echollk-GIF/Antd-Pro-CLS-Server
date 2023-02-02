@@ -7,29 +7,29 @@ class UserService {
     return res.dataValues
   }
   //获取用户信息
-  async getUserInfo ({ id, username, password, authority }) {
+  async getUserInfo ({ id, username, password, access }) {
     const whereOpt = {}
 
     id && Object.assign(whereOpt, { id })
     username && Object.assign(whereOpt, { username })
     password && Object.assign(whereOpt, { password })
-    authority && Object.assign(whereOpt, { authority })
+    access && Object.assign(whereOpt, { access })
 
     const res = await User.findOne({
-      attributes: ['id', 'username', 'password', 'authority'],
+      attributes: ['id', 'username', 'password', 'access'],
       where: whereOpt,
     })
     return res ? res.dataValues : null
   }
 
   //根据id更新用户信息
-  async updateById ({ id, username, password, authority }) {
+  async updateById ({ id, username, password, access }) {
     const whereOpt = { id }
     const newUser = {}
 
     username && Object.assign(newUser, { username })
     password && Object.assign(newUser, { password })
-    authority && Object.assign(newUser, { authority })
+    access && Object.assign(newUser, { access })
 
     const res = await User.update(newUser, { where: whereOpt })
 
