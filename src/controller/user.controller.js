@@ -74,8 +74,7 @@ class UserController {
   async currentUserInfo (ctx, next) {
     const id = ctx.state.user.id
     try {
-      const { username, access } = await getUserInfo({ id })
-      const res = { id, username, access }
+      const { password, ...res } = await getUserInfo({ id })
       ctx.body = {
         success: true,
         data: { ...res }
