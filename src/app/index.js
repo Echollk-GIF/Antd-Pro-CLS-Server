@@ -6,12 +6,14 @@ const errHandler = require('./errHandler')
 const app = new Koa()
 
 const userRouter = require('../router/user.route')
+const globalRouter = require('../router/global.route')
 
 //KoaBody中间件要在所有路由之前
 app.use(KoaBody())
 //parameter中间件也要在所有路由之前
 app.use(parameter(app))
 app.use(userRouter.routes())
+app.use(globalRouter.routes())
 
 // 统一的错误处理
 app.on('error', errHandler)

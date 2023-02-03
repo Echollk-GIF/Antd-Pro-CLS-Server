@@ -14,7 +14,6 @@ class UserController {
   async registerAccount (ctx, next) {
     //1.获取数据
     const { username, password } = ctx.request.body
-    console.log('aaaaaa')
     try {
       //2.操作数据库
       const res = await registerUserAccount(username, password)
@@ -22,7 +21,7 @@ class UserController {
       ctx.body = {
         code: 0,
         message: '用户注册成功',
-        result: {
+        data: {
           id: res.id,
           username: res.username
         }
@@ -60,13 +59,13 @@ class UserController {
       ctx.body = {
         code: 0,
         message: '修改密码成功',
-        result: '',
+        data: '',
       }
     } else {
       ctx.body = {
         code: '10007',
         message: '修改密码失败',
-        result: '',
+        data: '',
       }
     }
   }
