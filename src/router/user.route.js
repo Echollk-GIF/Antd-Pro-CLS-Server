@@ -9,7 +9,8 @@ const {
   registerAccount,
   loginAccount,
   changePassword,
-  currentUserInfo,
+  currentUserInfoByToken,
+  currentUserInfoById,
   outLogin
 } = require('../controller/user.controller')
 const {
@@ -31,6 +32,8 @@ router.patch('/', tokenAuth, crpytPassword, changePassword)
 router.post('/outLogin', tokenAuth, outLogin)
 
 //根据token获取当前用户信息
-router.get('/currentUserInfo', tokenAuth, currentUserInfo)
+router.get('/currentUserInfoByToken', tokenAuth, currentUserInfoByToken)
 
+//根据id获取当前用户信息
+router.post('/currentUserInfoById', tokenAuth, currentUserInfoById)
 module.exports = router

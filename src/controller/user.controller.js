@@ -79,7 +79,7 @@ class UserController {
     }
   }
   //根据token获取用户信息
-  async currentUserInfo (ctx, next) {
+  async currentUserInfoByToken (ctx, next) {
     const id = ctx.state.user.id
     try {
       const { password, ...res } = await getUserInfo({ id })
@@ -89,6 +89,19 @@ class UserController {
       }
     } catch (error) {
       console.error('根据token获取用户信息失败', err)
+    }
+  }
+  //根据id获取用户信息
+  async currentUserInfoById (ctx, next) {
+    const id = ctx.request.body.id
+    try {
+      const { password, ...res } = await getUserInfo({ id })
+      ctx.body = {
+        success: true,
+        data: { ...res }
+      }
+    } catch (error) {
+      console.error('根据id获取用户信息失败', err)
     }
   }
 }
