@@ -3,12 +3,11 @@ const { DataTypes } = require('sequelize')
 const seq = require('../db/seq')
 
 // 创建模型(Model user -> 表 users)
-const Good = seq.define('good', {
+const Goods = seq.define('good', {
   // id 会被sequelize自动创建, 管理
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: '默认名称',
     comment: '名称',
   },
   avatar: {
@@ -34,7 +33,6 @@ const Good = seq.define('good', {
   },
   desc: {
     type: DataTypes.STRING,
-    defaultValue: "默认描述",
     comment: '描述',
   },
   progress: {
@@ -48,6 +46,10 @@ const Good = seq.define('good', {
 })
 
 // 强制同步数据库(创建数据表)
-// Good.sync({ force: true })
+// Goods.sync({ force: true })
+// Goods.create({
+//   name: '测试物品',
+//   desc: '测试描述'
+// })
 
-module.exports = Good
+module.exports = Goods
