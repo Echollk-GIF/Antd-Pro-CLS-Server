@@ -9,7 +9,8 @@ const {
   registerAccount,
   loginAccount,
   changePassword,
-  currentUserInfo
+  currentUserInfo,
+  outLogin
 } = require('../controller/user.controller')
 const {
   tokenAuth
@@ -25,6 +26,9 @@ router.post('/login/account', userValidator, verifyLoginAccount, loginAccount)
 
 // 修改密码接口
 router.patch('/', tokenAuth, crpytPassword, changePassword)
+
+//退出登录
+router.post('/outLogin', tokenAuth, outLogin)
 
 //根据token获取当前用户信息
 router.get('/currentUserInfo', tokenAuth, currentUserInfo)

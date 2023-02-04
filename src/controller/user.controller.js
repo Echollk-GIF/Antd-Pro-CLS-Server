@@ -69,6 +69,15 @@ class UserController {
       }
     }
   }
+  //退出登录
+  async outLogin (ctx, next) {
+    const id = ctx.request.body.id
+    ctx.body = {
+      success: true,
+      message: `id为${id}的用户退出登录成功`,
+      data: {},
+    }
+  }
   //根据token获取用户信息
   async currentUserInfo (ctx, next) {
     const id = ctx.state.user.id
